@@ -101,6 +101,8 @@ RestartSec=5
 WantedBy=multi-user.target
 ```
 
+> **Replace `<MONGODB-SERVER-IPADDRESS>` with the private IP of the MongoDB server.**
+
 **Each line of the file**
 
 | Line | Meaning |
@@ -113,8 +115,6 @@ WantedBy=multi-user.target
 | `SyslogIdentifier=catalogue` | Name shown in the logs (`journalctl -u catalogue`) |
 | `Restart=on-failure` + `RestartSec=5` | If it crashes, restart after 5 seconds |
 | `WantedBy=multi-user.target` | Used by `enable`, to start at boot (creates the symlink in `multi-user.target.wants/`) |
-
-> **Replace `<MONGODB-SERVER-IPADDRESS>` with the private IP of the MongoDB server.**
 
 Optional settings:
 

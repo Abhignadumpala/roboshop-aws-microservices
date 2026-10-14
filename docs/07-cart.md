@@ -85,6 +85,8 @@ RestartSec=5
 WantedBy=multi-user.target
 ```
 
+> **Replace `<REDIS-SERVER-IPADDRESS>` and `<CATALOGUE-SERVER-IPADDRESS>` with the private IPs of those servers.**
+
 **Each line of the file**
 
 | Line | Meaning |
@@ -99,8 +101,6 @@ WantedBy=multi-user.target
 | `SyslogIdentifier=cart` | Name shown in the logs (`journalctl -u cart`) |
 | `Restart=on-failure` + `RestartSec=5` | If it crashes, restart after 5 seconds |
 | `WantedBy=multi-user.target` | Used by `enable`, to start at boot (creates the symlink in `multi-user.target.wants/`) |
-
-> **Replace `<REDIS-SERVER-IPADDRESS>` and `<CATALOGUE-SERVER-IPADDRESS>` with the private IPs of those servers.**
 
 Optional: `CART_TTL_SECONDS` (default `3600`) is how long an unchanged cart is kept in Redis.
 

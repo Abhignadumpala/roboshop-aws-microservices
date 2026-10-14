@@ -139,6 +139,8 @@ RestartSec=5
 WantedBy=multi-user.target
 ```
 
+> **Replace `<CART-SERVER-IPADDRESS>`, `<USER-SERVER-IPADDRESS>` and `<RABBITMQ-SERVER-IPADDRESS>` with the private IPs of those servers.**
+
 **Each line of the file**
 
 | Line | Meaning |
@@ -155,8 +157,6 @@ WantedBy=multi-user.target
 | `SyslogIdentifier=payment` | Name shown in the logs (`journalctl -u payment`) |
 | `Restart=on-failure` + `RestartSec=5` | If it crashes, restart after 5 seconds |
 | `WantedBy=multi-user.target` | Used by `enable`, to start at boot (creates the symlink in `multi-user.target.wants/`) |
-
-> **Replace `<CART-SERVER-IPADDRESS>`, `<USER-SERVER-IPADDRESS>` and `<RABBITMQ-SERVER-IPADDRESS>` with the private IPs of those servers.**
 
 The service now runs as `roboshop` instead of `root`. `payment:app` means "the `app` object in `payment.py`".
 

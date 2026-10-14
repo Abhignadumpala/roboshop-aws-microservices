@@ -97,6 +97,8 @@ RestartSec=5
 WantedBy=multi-user.target
 ```
 
+> **Replace `<RABBITMQ-SERVER-IPADDRESS>` with the private IP of the RabbitMQ server.**
+
 **Each line of the file**
 
 | Line | Meaning |
@@ -110,8 +112,6 @@ WantedBy=multi-user.target
 | `SyslogIdentifier=dispatch` | Name shown in the logs (`journalctl -u dispatch`) |
 | `Restart=on-failure` + `RestartSec=5` | If it crashes, restart after 5 seconds |
 | `WantedBy=multi-user.target` | Used by `enable`, to start at boot (creates the symlink in `multi-user.target.wants/`) |
-
-> **Replace `<RABBITMQ-SERVER-IPADDRESS>` with the private IP of the RabbitMQ server.**
 
 Optional: `DISPATCH_DELAY_MS` (default `500`) is the time to pack one order. Set it high, for example `60000`, to see orders pile up in the queue.
 

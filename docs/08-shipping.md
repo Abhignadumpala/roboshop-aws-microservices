@@ -238,6 +238,8 @@ RestartSec=5
 WantedBy=multi-user.target
 ```
 
+> **Replace `<CART-SERVER-IPADDRESS>` and `<MYSQL-SERVER-IPADDRESS>` with the private IPs of those servers.**
+
 **Each line of the file**
 
 | Line | Meaning |
@@ -253,8 +255,6 @@ WantedBy=multi-user.target
 | `SyslogIdentifier=shipping` | Name shown in the logs (`journalctl -u shipping`) |
 | `Restart=on-failure` + `RestartSec=5` | If it crashes, restart after 5 seconds |
 | `WantedBy=multi-user.target` | Used by `enable`, to start at boot (creates the symlink in `multi-user.target.wants/`) |
-
-> **Replace `<CART-SERVER-IPADDRESS>` and `<MYSQL-SERVER-IPADDRESS>` with the private IPs of those servers.**
 
 Load and start the service:
 
