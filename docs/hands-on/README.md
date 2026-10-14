@@ -67,6 +67,14 @@ Restarted → `ss -lntp` shows `0.0.0.0:27017`.
 
 ## 3. Redis
 
+Enabled the Redis 7 module.
+
+![module enable](./images/redis-00a-module-enable.png)
+
+`dnf install redis -y`.
+
+![install](./images/redis-00b-install.png)
+
 Edited `/etc/redis/redis.conf` (changed `bind` to `0.0.0.0`), then enabled + started Redis.
 
 ![Redis config and start](./images/redis-01-config-start.png)
@@ -81,6 +89,10 @@ Edited `/etc/redis/redis.conf` (changed `bind` to `0.0.0.0`), then enabled + sta
 
 ## 4. MySQL
 
+Enabled the MySQL 8.4 module and installed `mysql-server`.
+
+![install](./images/mysql-00-install.png)
+
 `systemctl enable` creates the symlink in `multi-user.target.wants/` → starts at every boot.
 
 ![MySQL enable symlink](./images/mysql-01-enable-symlink.png)
@@ -92,6 +104,14 @@ Set the root password → `mysql -uroot` without password is denied (expected) �
 ---
 
 ## 5. RabbitMQ
+
+RabbitMQ is not in the RHEL repos, so I created `/etc/yum.repos.d/rabbitmq.repo` (Erlang + RabbitMQ).
+
+![repo file](./images/rabbitmq-00a-repo-file.png)
+
+`dnf install erlang rabbitmq-server -y`, with the repo GPG keys imported.
+
+![install](./images/rabbitmq-00b-install.png)
 
 Started RabbitMQ and created the app user `roboshop`.
 
@@ -117,9 +137,25 @@ After every server: **Create record** → name + private IP.
 
 ![Create record](./images/dns-02-create-record.png)
 
+The same for every server once it was set up, e.g. `user` → 172.31.12.7.
+
+![record user](./images/dns-02b-record-user.png)
+
+`shipping` → 172.31.15.175.
+
+![record shipping](./images/dns-02c-record-shipping.png)
+
+`payment` → 172.31.8.73.
+
+![record payment](./images/dns-02d-record-payment.png)
+
 ---
 
 ## 7. Catalogue (Node.js)
+
+Disabled the default Node.js module, enabled `nodejs:24` and installed it.
+
+![node install](./images/catalogue-00-node-install.png)
 
 Node.js 24 → app user `roboshop` → download + unzip into `/app`.
 
@@ -132,6 +168,14 @@ Node.js 24 → app user `roboshop` → download + unzip into `/app`.
 Service file with the MongoDB **DNS name** instead of an IP.
 
 ![catalogue.service](./images/catalogue-03-service-file.png)
+
+To load data, catalogue needs the MongoDB client: the same `mongo.repo` as on the MongoDB server.
+
+![mongo repo](./images/catalogue-04a-mongo-repo.png)
+
+`dnf install mongodb-mongosh -y`.
+
+![mongosh install](./images/catalogue-04b-mongosh-install.png)
 
 Loaded the 11 products into MongoDB with `mongosh` (only once).
 
@@ -153,7 +197,23 @@ Looked inside MongoDB: `show dbs` → `use catalogue` → `show collections` →
 
 ## 8. User (Node.js)
 
-Same steps as catalogue. Service file needs **2** addresses: Redis and MongoDB.
+Node.js 24 module, same as catalogue.
+
+![node module](./images/user-00a-node-module.png)
+
+`dnf install nodejs -y`.
+
+![node install](./images/user-00b-node-install.png)
+
+App user → `/app` → download `user-v4.zip` → `npm install`.
+
+![download npm](./images/user-00c-download-npm.png)
+
+`node_modules` holds the libraries from `package.json` (redis, mongodb, express ...).
+
+![node modules](./images/user-00d-node-modules.png)
+
+Service file needs **2** addresses: Redis and MongoDB.
 
 ![user.service](./images/user-01-service-file.png)
 
@@ -161,9 +221,17 @@ Started → the log kept showing **Redis errors**.
 
 ![User start with Redis errors](./images/user-02-start-redis-errors.png)
 
+`journalctl -u user -f`: the same Redis error every 2 seconds.
+
+![log follow](./images/user-02b-log-follow.png)
+
 `/health` → `"redis":false`, log `Socket closed unexpectedly`.
 
 ![redis false](./images/user-03-redis-false.png)
+
+The full log: `TypeError ... reject` + `SocketClosedUnexpectedlyError`, the sign that Redis was closing the connection.
+
+![log errors](./images/user-03b-log-errors.png)
 
 **Fix:** on redis, `protected-mode no` + `systemctl restart redis`, then restarted user → `Redis connected` + `MongoDB connected`. Full story: [Troubleshooting #1](../troubleshooting.md#1-user-shows-redisfalse).
 
@@ -176,6 +244,18 @@ Login with the demo user → `HTTP/1.1 200 OK`.
 ---
 
 ## 9. Cart (Node.js)
+
+Node.js 24 module, same as catalogue and user.
+
+![node module](./images/cart-00a-node-module.png)
+
+`dnf install nodejs -y`.
+
+![node install](./images/cart-00b-node-install.png)
+
+App user → `/app` → download `cart-v4.zip` → `npm install`.
+
+![download npm](./images/cart-00c-download-npm.png)
 
 Service file needs Redis (save carts) and catalogue (price and stock).
 
@@ -193,6 +273,14 @@ Added 1 Robotic Mining Cyborg to a test cart → `200`, total 42. This proves ca
 
 ## 10. Shipping (Java)
 
+Enabled `maven:3.9` and installed Maven + `java-25-openjdk-devel`.
+
+![maven java install](./images/shipping-00a-maven-java-install.png)
+
+`alternatives --config java` → Java 25 as the default (Maven also brings Java 21).
+
+![alternatives](./images/shipping-00b-alternatives.png)
+
 Java 25 as default (`alternatives --config java`), `JAVA_HOME` in `/etc/profile.d/java.sh`, Maven uses Java 25.
 
 ![Java and Maven](./images/shipping-01-java-maven.png)
@@ -204,6 +292,10 @@ Downloaded the source and built it with `mvn clean package`.
 `BUILD SUCCESS` → moved `target/shipping.jar` to `/app/shipping.jar`.
 
 ![Build success](./images/shipping-03-build-success.png)
+
+`dnf install mysql -y`: the MySQL **client**, to load data into the MySQL server.
+
+![mysql client](./images/shipping-03b-mysql-client.png)
 
 Loaded **948,833 cities** into MySQL, created the app user `shipping` (it only sees the `cities` database).
 
@@ -227,9 +319,17 @@ Started → Spring Boot log → connected to MySQL.
 
 ## 11. Payment (Python)
 
+Installed `python3.14` and `python3.14-pip`.
+
+![python install](./images/payment-00-python-install.png)
+
 Python 3.14 → virtual env `/app/.venv` → `pip install -r requirements.txt`.
 
 ![Python venv](./images/payment-01-python-venv.png)
+
+`/app/.venv/bin/pip install -r requirements.txt`: Flask, gunicorn, requests, pika (RabbitMQ) ...
+
+![pip install](./images/payment-01b-pip-install.png)
 
 Service file needs cart, user and RabbitMQ.
 
@@ -242,6 +342,14 @@ gunicorn listening on `0.0.0.0:8080` → `/health` → `"rabbitmq":true`.
 ---
 
 ## 12. Dispatch (Go)
+
+`dnf install golang -y`.
+
+![go install](./images/dispatch-00a-go-install.png)
+
+`go version` → app user → download and unzip `dispatch-v4.zip` (`main.go`, `go.mod`, `go.sum`).
+
+![download](./images/dispatch-00b-download.png)
 
 Go → download → `go build -o dispatch .` → one binary `/app/dispatch`.
 
@@ -258,6 +366,10 @@ Log: `connected to RabbitMQ, waiting for orders`. No web port, so no `curl` here
 ---
 
 ## 13. Frontend (Nginx)
+
+Disabled the default Nginx module, enabled `nginx:1.26` and installed it.
+
+![nginx install](./images/frontend-00-nginx-install.png)
 
 Nginx 1.26 → removed the default page → unzipped the website into `/usr/share/nginx/html`.
 
@@ -295,9 +407,21 @@ Created my own account.
 
 ![Create account](./images/web-01-create-account.png)
 
+Signed in: my username at the top right.
+
+![signed in](./images/web-01b-signed-in.png)
+
 All 11 products load (catalogue → MongoDB).
 
 ![All products](./images/web-02-all-products.png)
+
+Filter by category: AI assistants.
+
+![ai assistants](./images/web-02b-ai-assistants.png)
+
+Ewooid has 0 in stock → "Out of stock" (stock comes from MongoDB, and cart checks it).
+
+![out of stock](./images/web-02c-out-of-stock.png)
 
 Added Stan + Watson to the cart (cart → Redis).
 
@@ -314,6 +438,26 @@ Review and pay (payment).
 Order confirmed (payment → user saves order → RabbitMQ → dispatch).
 
 ![Order confirmed](./images/web-06-order-confirmed.png)
+
+The first order in my order history (user → MongoDB).
+
+![first order in history](./images/web-06b-first-order-in-history.png)
+
+Order 2 (Ultimate Harvesting Juggernaut, €5,000): to India, Hyderabad, 7,222 km → €361.10 shipping.
+
+![shipping india](./images/web-06c-shipping-india.png)
+
+I changed it to Portugal, Lamego: 1,597 km → €79.85. Different distance, different cost, all from the MySQL cities data.
+
+![shipping portugal](./images/web-06d-shipping-portugal.png)
+
+Order 3: High-Powered Travel Droid, 12 in stock.
+
+![product page](./images/web-06e-product-page.png)
+
+Shipped to India, Hyderabad → total €1,561.10.
+
+![shipping india](./images/web-06f-shipping-india.png)
 
 My order history: 3 orders.
 

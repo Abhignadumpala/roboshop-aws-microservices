@@ -133,7 +133,7 @@ roboshop-aws-microservices/
     ├── 05-catalogue.md … 10-dispatch.md   ← backend services
     ├── 11-frontend.md       ← Nginx + reverse proxy
     ├── troubleshooting.md   ← problems I faced and how I fixed them
-    ├── hands-on/            ← my lab run with 55 screenshots
+    ├── hands-on/            ← my lab run with 91 screenshots
     └── images/              ← architecture diagrams
 ```
 
