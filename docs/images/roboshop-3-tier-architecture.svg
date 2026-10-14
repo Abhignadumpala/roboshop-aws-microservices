@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 890" width="1200" height="890" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+  <style>
+    .title { font-size: 28px; font-weight: 700; fill: #1e293b; }
+    .sub { font-size: 15px; fill: #475569; }
+    .tier { font-size: 17px; font-weight: 700; fill: #1e293b; }
+    .port { font-size: 15px; font-weight: 700; fill: #0f172a; font-family: Consolas, Menlo, monospace; }
+    .svc { font-size: 17px; font-weight: 700; fill: #0f172a; }
+    .label { font-size: 14px; fill: #0f172a; }
+    .name { font-size: 14px; font-weight: 700; fill: #0f172a; font-family: Consolas, Menlo, monospace; }
+    .aws { font-size: 15px; font-weight: 700; fill: #dc2626; }
+    .note { font-size: 14px; fill: #334155; }
+  </style>
+  <defs>
+    <marker id="k" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1e293b"/></marker>
+    <marker id="r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/></marker>
+    <marker id="b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/></marker>
+    <marker id="p" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#be185d"/></marker>
+    <marker id="o" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ea580c"/></marker>
+    <marker id="g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#16a34a"/></marker>
+  </defs>
+
+  <rect width="1200" height="890" rx="16" fill="#ffffff"/>
+  <text x="600" y="44" text-anchor="middle" class="title">Roboshop - 3 Tier Architecture</text>
+  <text x="600" y="72" text-anchor="middle" class="sub">Web tier → App tier (microservices) → DB tier. Each service talks only to what it needs.</text>
+
+  <!-- AWS account panel -->
+  <rect x="200" y="96" width="980" height="690" rx="14" fill="#fef9c3" stroke="#ca8a04" stroke-width="2"/>
+  <text x="222" y="122" class="aws">AWS Account</text>
+
+  <!-- User -->
+  <text x="100" y="342" text-anchor="middle" class="name">abhignadevops.store</text>
+  <rect x="30" y="356" width="140" height="110" rx="12" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+  <circle cx="100" cy="392" r="18" fill="none" stroke="#0284c7" stroke-width="3"/>
+  <path d="M66,450 Q100,410 134,450" fill="none" stroke="#0284c7" stroke-width="3"/>
+  <text x="100" y="488" text-anchor="middle" class="label">User (browser)</text>
+
+  <!-- Web tier -->
+  <rect x="235" y="140" width="190" height="620" rx="22" fill="#e5e7eb" stroke="#475569" stroke-width="2"/>
+  <text x="330" y="168" text-anchor="middle" class="tier">Web tier</text>
+  <text x="330" y="190" text-anchor="middle" class="port">port 80</text>
+  <line x1="170" y1="411" x2="266" y2="411" stroke="#1e293b" stroke-width="2.5" marker-end="url(#k)"/>
+  <rect x="268" y="381" width="124" height="60" rx="6" fill="#fde68a" stroke="#d97706" stroke-width="2"/>
+  <text x="330" y="417" text-anchor="middle" class="svc">frontend</text>
+  <text x="330" y="470" text-anchor="middle" class="note">Nginx</text>
+  <line x1="392" y1="411" x2="478" y2="411" stroke="#1e293b" stroke-width="2.5" marker-end="url(#k)"/>
+
+  <!-- App tier -->
+  <rect x="480" y="140" width="330" height="620" rx="22" fill="#d1fae5" stroke="#059669" stroke-width="2"/>
+  <text x="645" y="168" text-anchor="middle" class="tier">App tier</text>
+  <text x="645" y="190" text-anchor="middle" class="port">port 8080</text>
+
+  <rect x="590" y="215" width="180" height="60" rx="6" fill="#fca5a5" stroke="#dc2626" stroke-width="2"/>
+  <text x="680" y="251" text-anchor="middle" class="svc">catalogue</text>
+  <rect x="590" y="320" width="180" height="60" rx="6" fill="#93c5fd" stroke="#2563eb" stroke-width="2"/>
+  <text x="680" y="356" text-anchor="middle" class="svc">user</text>
+  <rect x="590" y="425" width="180" height="60" rx="6" fill="#f9a8d4" stroke="#be185d" stroke-width="2"/>
+  <text x="680" y="461" text-anchor="middle" class="svc">cart</text>
+  <rect x="590" y="530" width="180" height="60" rx="6" fill="#fde68a" stroke="#d97706" stroke-width="2"/>
+  <text x="680" y="566" text-anchor="middle" class="svc">shipping</text>
+  <rect x="590" y="635" width="180" height="60" rx="6" fill="#86efac" stroke="#16a34a" stroke-width="2"/>
+  <text x="680" y="671" text-anchor="middle" class="svc">payment</text>
+
+  <!-- Service-to-service calls (left lanes) -->
+  <!-- cart -> catalogue -->
+  <path d="M590,450 H550 V245 H588" fill="none" stroke="#be185d" stroke-width="2.5" stroke-dasharray="7 5" marker-end="url(#p)"/>
+  <!-- shipping -> cart -->
+  <path d="M590,560 H565 V468 H588" fill="none" stroke="#ea580c" stroke-width="2.5" stroke-dasharray="7 5" marker-end="url(#o)"/>
+  <!-- payment -> user, payment -> cart -->
+  <path d="M590,665 H510 V350 H588" fill="none" stroke="#16a34a" stroke-width="2.5" stroke-dasharray="7 5" marker-end="url(#g)"/>
+  <path d="M510,435 H588" fill="none" stroke="#16a34a" stroke-width="2.5" stroke-dasharray="7 5" marker-end="url(#g)"/>
+
+  <!-- DB tier -->
+  <rect x="880" y="140" width="280" height="620" rx="22" fill="#f3e8ff" stroke="#7c3aed" stroke-width="2"/>
+  <text x="1020" y="168" text-anchor="middle" class="tier">DB tier</text>
+
+  <text x="1020" y="206" text-anchor="middle" class="port">27017</text>
+  <rect x="925" y="215" width="190" height="70" rx="6" fill="#93c5fd" stroke="#2563eb" stroke-width="2"/>
+  <text x="1020" y="246" text-anchor="middle" class="svc">MongoDB</text>
+  <text x="1020" y="270" text-anchor="middle" class="note">NoSQL</text>
+
+  <text x="1020" y="356" text-anchor="middle" class="port">6379</text>
+  <rect x="925" y="365" width="190" height="70" rx="6" fill="#86efac" stroke="#16a34a" stroke-width="2"/>
+  <text x="1020" y="396" text-anchor="middle" class="svc">Redis</text>
+  <text x="1020" y="420" text-anchor="middle" class="note">cache</text>
+
+  <text x="1020" y="496" text-anchor="middle" class="port">3306</text>
+  <rect x="925" y="505" width="190" height="70" rx="6" fill="#fde68a" stroke="#d97706" stroke-width="2"/>
+  <text x="1020" y="536" text-anchor="middle" class="svc">MySQL</text>
+  <text x="1020" y="560" text-anchor="middle" class="note">SQL</text>
+
+  <text x="1020" y="636" text-anchor="middle" class="port">5672</text>
+  <rect x="925" y="645" width="190" height="70" rx="6" fill="#fca5a5" stroke="#dc2626" stroke-width="2"/>
+  <text x="1020" y="676" text-anchor="middle" class="svc">RabbitMQ</text>
+  <text x="1020" y="700" text-anchor="middle" class="note">message queue</text>
+
+  <!-- Service -> DB calls -->
+  <!-- catalogue -> MongoDB -->
+  <path d="M770,245 H923" fill="none" stroke="#dc2626" stroke-width="2.5" stroke-dasharray="7 5" marker-end="url(#r)"/>
+  <!-- user -> MongoDB, user -> Redis -->
+  <path d="M770,350 H835 V265 H923" fill="none" stroke="#2563eb" stroke-width="2.5" stroke-dasharray="7 5" marker-end="url(#b)"/>
+  <path d="M835,350 V385 H923" fill="none" stroke="#2563eb" stroke-width="2.5" stroke-dasharray="7 5" marker-end="url(#b)"/>
+  <!-- cart -> Redis -->
+  <path d="M770,455 H855 V415 H923" fill="none" stroke="#be185d" stroke-width="2.5" stroke-dasharray="7 5" marker-end="url(#p)"/>
+  <!-- shipping -> MySQL -->
+  <path d="M770,555 H923" fill="none" stroke="#ea580c" stroke-width="2.5" stroke-dasharray="7 5" marker-end="url(#o)"/>
+  <!-- payment -> RabbitMQ -->
+  <path d="M770,675 H923" fill="none" stroke="#16a34a" stroke-width="2.5" stroke-dasharray="7 5" marker-end="url(#g)"/>
+
+  <!-- Legend -->
+  <rect x="20" y="800" width="1160" height="76" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="600" y="830" text-anchor="middle" class="note">Dashed arrow colour = the service making the call.</text>
+  <text x="600" y="856" text-anchor="middle" class="note">catalogue → MongoDB · user → MongoDB + Redis · cart → Redis + catalogue · shipping → MySQL + cart · payment → RabbitMQ + user + cart</text>
+</svg>

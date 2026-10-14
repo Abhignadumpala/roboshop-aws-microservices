@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 640" width="1000" height="640" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#475569"/>
+    </marker>
+    <filter id="sh" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#0f172a" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+  <style>
+    .title { font-size: 28px; font-weight: 700; fill: #1e293b; }
+    .sub { font-size: 15px; fill: #475569; }
+    .app { font-size: 15px; font-weight: 700; fill: #ffffff; }
+    .db { font-size: 22px; font-weight: 700; fill: #ffffff; }
+    .type { font-size: 13px; font-weight: 700; }
+    .h { font-size: 13px; font-weight: 700; fill: #64748b; letter-spacing: 0.5px; }
+    .t { font-size: 15px; fill: #0f172a; }
+    .b { font-size: 15px; font-weight: 700; fill: #0f172a; }
+    .lbl { font-size: 13px; font-weight: 600; fill: #334155; }
+  </style>
+
+  <rect width="1000" height="640" fill="#f8fafc"/>
+
+  <text x="500" y="44" text-anchor="middle" class="title">RoboShop Databases</text>
+  <text x="500" y="70" text-anchor="middle" class="sub">Which app uses which database, and what each one stores</text>
+
+  <!-- App servers -->
+  <text x="30" y="104" class="h">APP SERVERS</text>
+  <g filter="url(#sh)">
+    <rect x="35" y="115" width="110" height="44" rx="22" fill="#6366f1"/>
+    <rect x="205" y="115" width="110" height="44" rx="22" fill="#6366f1"/>
+    <rect x="330" y="115" width="110" height="44" rx="22" fill="#6366f1"/>
+    <rect x="565" y="115" width="110" height="44" rx="22" fill="#6366f1"/>
+    <rect x="745" y="115" width="110" height="44" rx="22" fill="#6366f1"/>
+    <rect x="870" y="115" width="110" height="44" rx="22" fill="#6366f1"/>
+  </g>
+  <text x="90" y="142" text-anchor="middle" class="app">catalogue</text>
+  <text x="260" y="142" text-anchor="middle" class="app">user</text>
+  <text x="385" y="142" text-anchor="middle" class="app">cart</text>
+  <text x="620" y="142" text-anchor="middle" class="app">shipping</text>
+  <text x="800" y="142" text-anchor="middle" class="app">payment</text>
+  <text x="925" y="142" text-anchor="middle" class="app">dispatch</text>
+
+  <!-- Arrows -->
+  <g stroke="#475569" stroke-width="2.5" fill="none" marker-end="url(#ah)">
+    <line x1="95" y1="161" x2="120" y2="252"/>
+    <line x1="245" y1="161" x2="175" y2="252"/>
+    <line x1="275" y1="161" x2="320" y2="252"/>
+    <line x1="385" y1="161" x2="385" y2="252"/>
+    <line x1="620" y1="161" x2="620" y2="252"/>
+    <line x1="800" y1="161" x2="830" y2="252"/>
+    <line x1="905" y1="254" x2="925" y2="163"/>
+  </g>
+  <text x="808" y="205" class="lbl" text-anchor="end">sends</text>
+  <text x="922" y="215" class="lbl">reads</text>
+
+  <!-- Database cards -->
+  <g filter="url(#sh)">
+    <rect x="30" y="256" width="220" height="330" rx="14" fill="#ffffff" stroke="#13aa52" stroke-width="2"/>
+    <rect x="270" y="256" width="220" height="330" rx="14" fill="#ffffff" stroke="#dc382d" stroke-width="2"/>
+    <rect x="510" y="256" width="220" height="330" rx="14" fill="#ffffff" stroke="#00758f" stroke-width="2"/>
+    <rect x="750" y="256" width="220" height="330" rx="14" fill="#ffffff" stroke="#ff6600" stroke-width="2"/>
+  </g>
+
+  <!-- MongoDB -->
+  <path d="M30,270 a14,14 0 0 1 14,-14 h192 a14,14 0 0 1 14,14 v56 h-220 z" fill="#13aa52"/>
+  <text x="140" y="290" text-anchor="middle" class="db">MongoDB</text>
+  <rect x="95" y="300" width="90" height="20" rx="10" fill="#ffffff"/>
+  <text x="140" y="315" text-anchor="middle" class="type" fill="#13aa52">NoSQL</text>
+  <text x="48" y="355" class="h">IN ONE LINE</text>
+  <text x="48" y="377" class="t">Saves data as</text>
+  <text x="48" y="397" class="t">JSON-like documents</text>
+  <text x="48" y="433" class="h">STORES</text>
+  <text x="48" y="455" class="b">• Products, ratings</text>
+  <text x="48" y="477" class="b">• Users, orders</text>
+  <text x="48" y="513" class="h">PORT</text>
+  <text x="48" y="535" class="b">27017</text>
+
+  <!-- Redis -->
+  <path d="M270,270 a14,14 0 0 1 14,-14 h192 a14,14 0 0 1 14,14 v56 h-220 z" fill="#dc382d"/>
+  <text x="380" y="290" text-anchor="middle" class="db">Redis</text>
+  <rect x="320" y="300" width="120" height="20" rx="10" fill="#ffffff"/>
+  <text x="380" y="315" text-anchor="middle" class="type" fill="#dc382d">In-memory cache</text>
+  <text x="288" y="355" class="h">IN ONE LINE</text>
+  <text x="288" y="377" class="t">Super fast, keeps</text>
+  <text x="288" y="397" class="t">data in RAM</text>
+  <text x="288" y="433" class="h">STORES</text>
+  <text x="288" y="455" class="b">• Carts</text>
+  <text x="288" y="477" class="b">• Guest id counter</text>
+  <text x="288" y="513" class="h">PORT</text>
+  <text x="288" y="535" class="b">6379</text>
+
+  <!-- MySQL -->
+  <path d="M510,270 a14,14 0 0 1 14,-14 h192 a14,14 0 0 1 14,14 v56 h-220 z" fill="#00758f"/>
+  <text x="620" y="290" text-anchor="middle" class="db">MySQL</text>
+  <rect x="580" y="300" width="80" height="20" rx="10" fill="#ffffff"/>
+  <text x="620" y="315" text-anchor="middle" class="type" fill="#00758f">SQL</text>
+  <text x="528" y="355" class="h">IN ONE LINE</text>
+  <text x="528" y="377" class="t">Saves data in tables</text>
+  <text x="528" y="397" class="t">(rows and columns)</text>
+  <text x="528" y="433" class="h">STORES</text>
+  <text x="528" y="455" class="b">• Cities</text>
+  <text x="528" y="477" class="b">• Shipping cost data</text>
+  <text x="528" y="513" class="h">PORT</text>
+  <text x="528" y="535" class="b">3306</text>
+
+  <!-- RabbitMQ -->
+  <path d="M750,270 a14,14 0 0 1 14,-14 h192 a14,14 0 0 1 14,14 v56 h-220 z" fill="#ff6600"/>
+  <text x="860" y="290" text-anchor="middle" class="db">RabbitMQ</text>
+  <rect x="805" y="300" width="110" height="20" rx="10" fill="#ffffff"/>
+  <text x="860" y="315" text-anchor="middle" class="type" fill="#ff6600">Message queue</text>
+  <text x="768" y="355" class="h">IN ONE LINE</text>
+  <text x="768" y="377" class="t">Holds messages until</text>
+  <text x="768" y="397" class="t">another service reads them</text>
+  <text x="768" y="433" class="h">STORES</text>
+  <text x="768" y="455" class="b">• Orders waiting</text>
+  <text x="768" y="477" class="b">   to be dispatched</text>
+  <text x="768" y="513" class="h">PORT</text>
+  <text x="768" y="535" class="b">5672</text>
+
+  <text x="500" y="618" text-anchor="middle" class="sub">Apps find each database by DNS name, e.g. mongodb.abhignadevops.store · Security groups allow only these arrows</text>
+</svg>
