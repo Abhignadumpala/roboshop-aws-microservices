@@ -10,7 +10,7 @@ RoboShop is an online robot store built from small services. Each service runs o
 
 ![RoboShop order flow on AWS - from the browser to dispatch](images/roboshop-order-flow.gif)
 
-One order, step by step: Route 53 → internet gateway → Nginx → catalogue, cart, shipping, payment → MongoDB, Redis, MySQL → RabbitMQ → dispatch.
+One order, step by step: each request goes in (Route 53 → internet gateway → Nginx → service → database) and its response comes back the same way to the customer (pink). Dispatch runs in the background off the RabbitMQ queue.
 
 ---
 
