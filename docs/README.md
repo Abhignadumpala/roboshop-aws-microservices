@@ -6,6 +6,12 @@
 
 RoboShop is an online robot store built from small services. Each service runs on its own EC2 server (RHEL 9) and is managed by `systemd`.
 
+### Order Flow (animated)
+
+![RoboShop order flow on AWS - from the browser to dispatch](images/roboshop-order-flow.gif)
+
+One order, step by step: Route 53 → internet gateway → Nginx → catalogue, cart, shipping, payment → MongoDB, Redis, MySQL → RabbitMQ → dispatch.
+
 ---
 
 ## Services, Ports and Versions

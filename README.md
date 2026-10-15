@@ -76,6 +76,8 @@ A full e-commerce flow, split into independent services:
 
 ## How It Fits Together
 
+![RoboShop order flow on AWS - an order travelling from the browser to dispatch](docs/images/roboshop-order-flow.gif)
+
 ![Which service uses which database](docs/images/roboshop-databases.svg)
 
 ```text
