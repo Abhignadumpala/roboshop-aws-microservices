@@ -58,6 +58,8 @@ We didn't set a Redis password, and protected mode was still `yes`, so Redis ref
 | 4 | Set it to `no` + restart redis | Redis now accepts other servers |
 | 5 | Restart user | User connects again → `"redis":true` |
 
+![Where I changed protected-mode](./hands-on/images/redis-03-protected-mode-fix.png)
+
 ```shell
 # on redis
 grep -E "^bind|^protected-mode" /etc/redis/redis.conf

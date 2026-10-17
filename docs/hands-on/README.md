@@ -85,6 +85,10 @@ Edited `/etc/redis/redis.conf` (changed `bind` to `0.0.0.0`), then enabled + sta
 
 > I missed `protected-mode`: it was still `yes`. I found it later when user showed `"redis":false`. See [Troubleshooting #1](../troubleshooting.md#1-user-shows-redisfalse).
 
+Where I changed it: `/etc/redis/redis.conf` on the redis server → `protected-mode no` → restart redis, then restart user (reference diagram, no screenshot taken of this edit).
+
+![protected-mode fix](./images/redis-03-protected-mode-fix.png)
+
 ---
 
 ## 4. MySQL
